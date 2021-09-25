@@ -11,66 +11,66 @@ type (
 	// all data, and an encrypted token
 	// See https://developer.apple.com/library/content/documentation/PassKit/Reference/PaymentTokenJSON/PaymentTokenJSON.html
 	PKPaymentToken struct {
-		transactionTime       time.Time
-		TransactionIdentifier string
-		PaymentMethod         PaymentMethod
-		PaymentData           PaymentData
+		transactionTime       time.Time     `json:"-"`
+		TransactionIdentifier string        `json:"transactionIdentifier"`
+		PaymentMethod         PaymentMethod `json:"paymentMethod"`
+		PaymentData           PaymentData   `json:"paymentData"`
 	}
 
 	PaymentMethod struct {
-		Type        string
-		Network     string
-		DisplayName string
+		Type        string `json:"type"`
+		Network     string `json:"network"`
+		DisplayName string `json:"displayName"`
 	}
 
 	PaymentData struct {
-		Version   string
-		Signature []byte
-		Header    Header
-		Data      []byte
+		Version   string `json:"version"`
+		Signature []byte `json:"signature"`
+		Header    Header `json:"header"`
+		Data      []byte `json:"data"`
 	}
 
 	Header struct {
-		ApplicationData    string
-		EphemeralPublicKey []byte
-		WrappedKey         []byte
-		PublicKeyHash      []byte
-		TransactionID      string
+		ApplicationData    string `json:"applicationData,omitempty"`
+		EphemeralPublicKey []byte `json:"ephemeralPublicKey,omitempty"`
+		WrappedKey         []byte `json:"wrappedKey,omitempty"`
+		PublicKeyHash      []byte `json:"publicKeyHash,omitempty"`
+		TransactionID      string `json:"transactionId"`
 	}
 
 	// Token is the decrypted form of Response.Token.PaymentData.Data
 	Token struct {
 		// ApplicationPrimaryAccountNumber is the device-specific account number of the card that funds this
 		// transaction
-		ApplicationPrimaryAccountNumber string
+		ApplicationPrimaryAccountNumber string `json:"applicationPrimaryAccountNumber,omitempty"`
 		// ApplicationExpirationDate is the card expiration date in the format YYMMDD
-		ApplicationExpirationDate string
+		ApplicationExpirationDate string `json:"applicationExpirationDate,omitempty"`
 		// CurrencyCode is the ISO 4217 numeric currency code, as a string to preserve leading zeros
-		CurrencyCode string
+		CurrencyCode string `json:"currencyCode,omitempty"`
 		// TransactionAmount is the value of the transaction
-		TransactionAmount float64
+		TransactionAmount float64 `json:"transactionAmount,omitempty"`
 		// CardholderName is the name on the card
-		CardholderName string
+		CardholderName string `json:"cardholderName,omitempty"`
 		// DeviceManufacturerIdentifier is a hex-encoded device manufacturer identifier
-		DeviceManufacturerIdentifier string
+		DeviceManufacturerIdentifier string `json:"deviceManufacturerIdentifier,omitempty"`
 		// PaymentDataType is either 3DSecure or, if using Apple Pay in China, EMV
-		PaymentDataType string
+		PaymentDataType string `json:"paymentDataType,omitempty"`
 		// PaymentData contains detailed payment data
 		PaymentData struct {
 			// 3-D Secure fields
 
 			// OnlinePaymentCryptogram is the 3-D Secure cryptogram
-			OnlinePaymentCryptogram []byte
+			OnlinePaymentCryptogram []byte `json:"onlinePaymentCryptogram,omitempty"`
 			// ECIIndicator is the Electronic Commerce Indicator for the status of 3-D Secure
-			ECIIndicator string
+			ECIIndicator string `json:"eciIndicator,omitempty"`
 
 			// EMV fields
 
 			// EMVData is the output from the Secure Element
-			EMVData []byte
+			EMVData []byte `json:"emvData,omitempty"`
 			// EncryptedPINData is the PIN encrypted with the bank's key
-			EncryptedPINData string
-		}
+			EncryptedPINData string `json:"encryptedPINData,omitempty"`
+		} `json:"paymentData,omitempty"`
 	}
 
 	// version is used to represent the different versions of encryption used by Apple Pay

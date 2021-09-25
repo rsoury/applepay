@@ -15,23 +15,26 @@ type (
 	// Response is the full response from the user's device after an Apple
 	// Pay request
 	Response struct {
-		ShippingContact Contact
-		BillingContact  Contact
-		Token           PKPaymentToken
+		ShippingContact Contact        `json:"shippingContact,omitempty"`
+		BillingContact  Contact        `json:"billingContact,omitempty"`
+		Token           PKPaymentToken `json:"token"`
 	}
 
 	// Contact is the struct that contains billing/shipping information from an
 	// Apple Pay response
 	Contact struct {
-		GivenName          string
-		FamilyName         string
-		EmailAddress       string
-		AddressLines       []string
-		AdministrativeArea string
-		Locality           string
-		PostalCode         string
-		Country            string
-		CountryCode        string
+		GivenName             string   `json:"givenName,omitempty"`
+		FamilyName            string   `json:"familyName,omitempty"`
+		EmailAddress          string   `json:"emailAddress,omitempty"`
+		AddressLines          []string `json:"addressLines,omitempty"`
+		AdministrativeArea    string   `json:"administrativeArea,omitempty"`
+		Locality              string   `json:"locality,omitempty"`
+		PostalCode            string   `json:"postalCode,omitempty"`
+		Country               string   `json:"country,omitempty"`
+		CountryCode           string   `json:"countryCode,omitempty"`
+		PhoneNumber           string   `json:"phoneNumber,omitempty"`
+		SubAdministrativeArea string   `json:"subAdministrativeArea,omitempty"`
+		SubLocality           string   `json:"subLocality,omitempty"`
 	}
 )
 
