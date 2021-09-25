@@ -18,6 +18,7 @@ var (
 func init() {
 	var err error
 	applepay.AppleRootCertificatePath = "AppleRootCA-G3.crt"
+	// applepay.UnsafeSignatureVerification = true
 	ap, err = applepay.New(
 		"merchant.com.processout.test",
 		applepay.MerchantDisplayName("ProcessOut Development Store"),

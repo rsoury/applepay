@@ -91,6 +91,8 @@ var (
 	// TransactionTimeWindow is the window of time, in minutes, where
 	// transactions can fit to limit replay attacks
 	TransactionTimeWindow = 5 * time.Minute
+
+	UnsafeSignatureVerification = false
 )
 
 // PublicKeyHash returns the hash of the public key used in the token after

@@ -6,6 +6,18 @@ applepay is a Go package for processing Apple Pay transactions easily. It is aim
 
 Note: we have included the Apple root CA in this repository. For production use-cases, you should always download the certificates directly from [Apple](https://www.apple.com/certificateauthority/).
 
+## Unsafe Signature Verification
+
+The intention here is to be able to use this library without the Apple Root Certificate.
+This is an unsafe/insecure approach, but is faster for development.
+
+In order to use the unsafe approach:
+
+```go
+applepay.UnsafeSignatureVerification = true
+ap, err := applepay.New(...)
+```
+
 ## Running tests
 
 ```shell

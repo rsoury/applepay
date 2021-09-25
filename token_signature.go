@@ -50,7 +50,11 @@ func (t *PKPaymentToken) verifySignature() error {
 
 	root, err := loadRootCertificate(AppleRootCertificatePath)
 	if err != nil {
-		return errors.Wrap(err, "error loading the root certificate")
+		if UnsafeSignatureVerification == false {
+			return errors.Wrap(err, "error loading the root certificate")
+		} else {
+			root = nil
+		}
 	}
 
 	// Verify
@@ -181,8 +185,10 @@ func verifyCertificates(root, inter, leaf *x509.Certificate) error {
 	}
 
 	// Verify the chain of trust
-	if err := inter.CheckSignatureFrom(root); err != nil {
-		return errors.Wrap(err, "intermediate cert is not trusted by root")
+	if UnsafeSignatureVerification == false {
+		if err := inter.CheckSignatureFrom(root); err != nil {
+			return errors.Wrap(err, "intermediate cert is not trusted by root")
+		}
 	}
 	if err := leaf.CheckSignatureFrom(inter); err != nil {
 		return errors.Wrap(err, "leaf cert is not trusted by intermediate cert")
