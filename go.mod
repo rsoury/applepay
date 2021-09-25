@@ -1,4 +1,4 @@
-module github.com/processout/applepay
+module github.com/rsoury/applepay
 
 go 1.16
 
